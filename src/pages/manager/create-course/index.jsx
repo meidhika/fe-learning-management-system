@@ -100,7 +100,6 @@ export default function ManageCreateCoursePage() {
             <input
               {...register("name")}
               type="text"
-              name="title"
               id="title"
               className="appearance-none outline-none w-full py-3 font-semibold placeholder:font-normal placeholder:text-[#838C9D] !bg-transparent"
               placeholder="Write better name for your course"
@@ -121,6 +120,7 @@ export default function ManageCreateCoursePage() {
             <button
               type="button"
               id="trigger-input"
+              onClick={() => inputFileRef?.current?.click()}
               className="absolute top-0 left-0 z-0 flex items-center justify-center w-full h-full gap-3"
             >
               <img
@@ -132,8 +132,10 @@ export default function ManageCreateCoursePage() {
             </button>
             <img
               id="thumbnail-preview"
-              src=""
-              className="hidden object-cover w-full h-full"
+              src={file !== null ? URL.createObjectURL(file) : ""}
+              className={`w-full h-full object-cover ${
+                file !== null ? "block" : "hidden"
+              }`}
               alt="thumbnail"
             />
             <button
@@ -146,8 +148,14 @@ export default function ManageCreateCoursePage() {
           </div>
           <input
             {...register("thumbnail")}
+            ref={inputFileRef}
             type="file"
-            name="thumbnail"
+            onChange={(e) => {
+              if (e.target.files) {
+                setFile(e.target.files[0]);
+                setValue("thumbnail", e.target.files[0]);
+              }
+            }}
             id="thumbnail"
             accept="image/*"
             className="absolute bottom-0 left-1/4 -z-10"
@@ -169,7 +177,6 @@ export default function ManageCreateCoursePage() {
             <input
               {...register("tagline")}
               type="text"
-              name="tagline"
               id="tagline"
               className="appearance-none outline-none w-full py-3 font-semibold placeholder:font-normal placeholder:text-[#838C9D] !bg-transparent"
               placeholder="Write tagline for better copy"
@@ -191,7 +198,6 @@ export default function ManageCreateCoursePage() {
             />
             <select
               {...register("categoryId")}
-              name="category"
               id="category"
               className="appearance-none outline-none w-full py-3 px-2 -mx-2 font-semibold placeholder:font-normal placeholder:text-[#838C9D] !bg-transparent"
             >
@@ -226,7 +232,6 @@ export default function ManageCreateCoursePage() {
             />
             <textarea
               {...register("description")}
-              name="desc"
               id="desc"
               rows="5"
               className="appearance-none outline-none w-full font-semibold placeholder:font-normal placeholder:text-[#838C9D] !bg-transparent"
@@ -246,6 +251,11 @@ export default function ManageCreateCoursePage() {
           </button>
           <button
             type="submit"
+            disabled={
+              data?.course === null
+                ? mutateCreate.isLoading
+                : mutateUpdate.isLoading
+            }
             className="w-full rounded-full p-[14px_20px] font-semibold text-[#FFFFFF] bg-[#662FFF] text-nowrap"
           >
             Create Now
