@@ -1,7 +1,11 @@
 import React from "react";
 import TableContent from "./table-content";
+import { Link, useLoaderData, useParams } from "react-router-dom";
 
 export default function ManageCourseDetailPage() {
+  const { id } = useParams();
+
+  const course = useLoaderData();
   return (
     <>
       <div
@@ -27,7 +31,7 @@ export default function ManageCourseDetailPage() {
         </div>
         <div className="flex items-center gap-3">
           <Link
-            to="#"
+            to={`/manager/courses/edit/${id}`}
             className="w-fit rounded-full border border-[#060A23] p-[14px_20px] font-semibold text-nowrap"
           >
             Edit Course
@@ -47,11 +51,11 @@ export default function ManageCourseDetailPage() {
         >
           <img
             src="/assets/images/thumbnails/th-4.png"
-            className="w-full h-full object-cover"
+            className="object-cover w-full h-full"
             alt="thumbnail"
           />
         </div>
-        <div className="grid grid-cols-2 gap-5 w-full">
+        <div className="grid w-full grid-cols-2 gap-5">
           <div className="flex flex-col rounded-[20px] border border-[#CFDBEF] p-5 gap-4">
             <img
               src="/assets/images/icons/profile-2user-purple.svg"
