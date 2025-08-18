@@ -1,4 +1,11 @@
+import secureLocalStorage from "react-secure-storage";
+import { STORAGE_KEY } from "../utils/const";
+
 export default function Header() {
+  const handleLogout = () => {
+    secureLocalStorage.removeItem(STORAGE_KEY);
+    window.location.replace("/manager/sign-in");
+  };
   return (
     <div id="TopBar" className="flex items-center justify-between gap-[30px]">
       <form
@@ -30,13 +37,13 @@ export default function Header() {
         >
           <img
             src="/assets/images/photos/photo-1.png"
-            className="w-full h-full object-cover"
+            className="object-cover w-full h-full"
             alt="profile photos"
           />
         </button>
         <div
           id="ProfileDropdown"
-          className="absolute top-full hidden group-hover:block"
+          className="absolute hidden top-full group-hover:block"
         >
           <ul className="flex flex-col w-[200px] rounded-[20px] border border-[#CFDBEF] p-5 gap-4 bg-white mt-4">
             <li className="font-semibold">
@@ -49,7 +56,9 @@ export default function Header() {
               <a href="#">Settings</a>
             </li>
             <li className="font-semibold">
-              <a href="signin.html">Logout</a>
+              <button type="button" onClick={handleLogout}>
+                Logout
+              </button>
             </li>
           </ul>
         </div>
