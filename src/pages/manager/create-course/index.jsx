@@ -1,8 +1,70 @@
-import React from "react";
-import { useLoaderData } from "react-router-dom";
+import { zodResolver } from "@hookform/resolvers/zod";
+import React, { useRef, useState } from "react";
+import { useForm } from "react-hook-form";
+import { useLoaderData, useNavigate, useParams } from "react-router-dom";
+import {
+  createCourseSchema,
+  updateCourseSchema,
+} from "../../../utils/zodSchema";
+import { useMutation } from "@tanstack/react-query";
+import { createCourse, updateCourse } from "../../../services/courseService";
 
 export default function ManageCreateCoursePage() {
   const data = useLoaderData();
+  const { id } = useParams();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+  } = useForm({
+    resolver: zodResolver(
+      data.course === null ? createCourseSchema : updateCourseSchema
+    ),
+    defaultValues: {
+      name: data?.course?.name,
+      tagline: data?.course?.tagline,
+      categoryId: data?.course?.category,
+      description: data?.course?.description,
+    },
+  });
+
+  const [file, setFile] = useState(null);
+  const inputFileRef = useRef(null);
+
+  const navigate = useNavigate();
+
+  const mutateCreate = useMutation({
+    mutationFn: (data) => createCourse(data),
+  });
+
+  const mutateUpdate = useMutation({
+    mutationFn: (data) => updateCourse(data, id),
+  });
+
+  const onSubmit = async (values) => {
+    try {
+      const formData = new FormData();
+
+      formData.append("name", values.name);
+      formData.append("thumbnail", file);
+      formData.append("tagline", values.tagline);
+      formData.append("categoryId", values.categoryId);
+      formData.append("description", values.description);
+
+      if (data.course === null) {
+        await mutateCreate.mutateAsync(formData);
+      } else {
+        await mutateUpdate.mutateAsync(formData);
+      }
+
+      navigate("/manager/courses");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <>
       <header className="flex items-center justify-between gap-[30px]">
@@ -22,7 +84,7 @@ export default function ManageCreateCoursePage() {
         </div>
       </header>
       <form
-        action="manage-course.html"
+        onSubmit={handleSubmit(onSubmit)}
         className="flex flex-col w-[550px] rounded-[30px] p-[30px] gap-[30px] bg-[#F8FAFB]"
       >
         <div className="flex flex-col gap-[10px]">
@@ -36,14 +98,17 @@ export default function ManageCreateCoursePage() {
               alt="icon"
             />
             <input
+              {...register("name")}
               type="text"
               name="title"
               id="title"
               className="appearance-none outline-none w-full py-3 font-semibold placeholder:font-normal placeholder:text-[#838C9D] !bg-transparent"
               placeholder="Write better name for your course"
-              required
             />
           </div>
+          <span className="error-message text-[#FF435A]">
+            {errors.name?.message}
+          </span>
         </div>
         <div className="relative flex flex-col gap-[10px]">
           <label htmlFor="thumbnail" className="font-semibold">
@@ -80,13 +145,16 @@ export default function ManageCreateCoursePage() {
             </button>
           </div>
           <input
+            {...register("thumbnail")}
             type="file"
             name="thumbnail"
             id="thumbnail"
             accept="image/*"
             className="absolute bottom-0 left-1/4 -z-10"
-            required
           />
+          <span className="error-message text-[#FF435A]">
+            {errors.thumbnail?.message}
+          </span>
         </div>
         <div className="flex flex-col gap-[10px]">
           <label htmlFor="tagline" className="font-semibold">
@@ -99,6 +167,7 @@ export default function ManageCreateCoursePage() {
               alt="icon"
             />
             <input
+              {...register("tagline")}
               type="text"
               name="tagline"
               id="tagline"
@@ -106,6 +175,9 @@ export default function ManageCreateCoursePage() {
               placeholder="Write tagline for better copy"
             />
           </div>
+          <span className="error-message text-[#FF435A]">
+            {errors.tagline?.message}
+          </span>
         </div>
         <div className="flex flex-col gap-[10px]">
           <label htmlFor="category" className="font-semibold">
@@ -118,6 +190,7 @@ export default function ManageCreateCoursePage() {
               alt="icon"
             />
             <select
+              {...register("categoryId")}
               name="category"
               id="category"
               className="appearance-none outline-none w-full py-3 px-2 -mx-2 font-semibold placeholder:font-normal placeholder:text-[#838C9D] !bg-transparent"
@@ -137,18 +210,22 @@ export default function ManageCreateCoursePage() {
               alt="icon"
             />
           </div>
+          <span className="error-message text-[#FF435A]">
+            {errors.categoryId?.message}
+          </span>
         </div>
         <div className="flex flex-col gap-[10px]">
           <label htmlFor="desc" className="font-semibold">
             Description
           </label>
-          <div className="flex w-full rounded-[20px] border border-[#CFDBEF] gap-3 p-5  transition-all duration-300 focus-within:ring-2 focus-within:ring-[#662FFF] ring-2 ring-[#FF435A]">
+          <div className="flex w-full rounded-[20px] border border-[#CFDBEF] gap-3 p-5  transition-all duration-300 focus-within:ring-2 focus-within:ring-[#662FFF]">
             <img
               src="/assets/images/icons/note-black.png"
               className="w-6 h-6"
               alt="icon"
             />
             <textarea
+              {...register("description")}
               name="desc"
               id="desc"
               rows="5"
@@ -157,12 +234,12 @@ export default function ManageCreateCoursePage() {
             ></textarea>
           </div>
           <span className="error-message text-[#FF435A]">
-            The description is required
+            {errors.description?.message}
           </span>
         </div>
         <div className="flex items-center gap-[14px]">
           <button
-            type="submit"
+            type="button"
             className="w-full rounded-full border border-[#060A23] p-[14px_20px] font-semibold text-nowrap"
           >
             Save as Draft
