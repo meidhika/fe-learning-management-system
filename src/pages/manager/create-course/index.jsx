@@ -1,6 +1,8 @@
 import React from "react";
+import { useLoaderData } from "react-router-dom";
 
 export default function ManageCreateCoursePage() {
+  const data = useLoaderData();
   return (
     <>
       <header className="flex items-center justify-between gap-[30px]">
@@ -54,7 +56,7 @@ export default function ManageCreateCoursePage() {
             <button
               type="button"
               id="trigger-input"
-              className="absolute top-0 left-0 w-full h-full flex justify-center items-center gap-3 z-0"
+              className="absolute top-0 left-0 z-0 flex items-center justify-center w-full h-full gap-3"
             >
               <img
                 src="/assets/images/icons/gallery-add-black.svg"
@@ -66,7 +68,7 @@ export default function ManageCreateCoursePage() {
             <img
               id="thumbnail-preview"
               src=""
-              className="w-full h-full object-cover hidden"
+              className="hidden object-cover w-full h-full"
               alt="thumbnail"
             />
             <button
@@ -123,9 +125,11 @@ export default function ManageCreateCoursePage() {
               <option value="" hidden>
                 Choose one category
               </option>
-              <option value="">test</option>
-              <option value="">test</option>
-              <option value="">test</option>
+              {data?.categories?.data?.map((item) => (
+                <option key={item._id} value={item._id}>
+                  {item.name}
+                </option>
+              ))}
             </select>
             <img
               src="/assets/images/icons/arrow-down.svg"
