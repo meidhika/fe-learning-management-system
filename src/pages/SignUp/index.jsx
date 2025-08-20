@@ -1,14 +1,15 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
 import Navbar from "../../components/navbar";
+import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signUpSchema } from "../../utils/zodSchema";
 import Pricing from "./pricing";
+import { useState } from "react";
 
 export default function SignUpPage() {
   const [dataSignUp, setDataSignUp] = useState(null);
   const [mode, setMode] = useState("AUTH");
+
   const {
     register,
     handleSubmit,
@@ -21,6 +22,7 @@ export default function SignUpPage() {
     setDataSignUp(data);
     setMode("PRICING");
   };
+
   return (
     <>
       {mode === "AUTH" ? (
@@ -76,7 +78,7 @@ export default function SignUpPage() {
               </div>
               {errors.name?.message && (
                 <p className="-mt-5 text-xs text-red-500">
-                  {errors.name.message}
+                  {errors.name?.message}
                 </p>
               )}
               <div className="flex items-center gap-3 w-full rounded-full border p-[14px_20px] transition-all duration-300 focus-within:border-[#8661EE] focus-within:shadow-[-10px_-6px_10px_0_#7F33FF_inset] bg-[#070B24] border-[#24283E] shadow-[-10px_-6px_10px_0_#181A35_inset]">
@@ -96,7 +98,7 @@ export default function SignUpPage() {
               </div>
               {errors.email?.message && (
                 <p className="-mt-5 text-xs text-red-500">
-                  {errors.email.message}
+                  {errors.email?.message}
                 </p>
               )}
               <div className="flex items-center gap-3 w-full rounded-full border p-[14px_20px] transition-all duration-300 focus-within:border-[#8661EE] focus-within:shadow-[-10px_-6px_10px_0_#7F33FF_inset] bg-[#070B24] border-[#24283E] shadow-[-10px_-6px_10px_0_#181A35_inset]">
@@ -116,7 +118,7 @@ export default function SignUpPage() {
               </div>
               {errors.password?.message && (
                 <p className="-mt-5 text-xs text-red-500">
-                  {errors.password.message}
+                  {errors.password?.message}
                 </p>
               )}
               <hr className="border-[#262A56]" />

@@ -1,9 +1,8 @@
-import React from "react";
 import Navbar from "../../components/navbar";
 import { Link } from "react-router-dom";
-import { useMutation } from "@tanstack/react-query";
 import { postSignUp } from "../../services/authService";
 import Proptypes from "prop-types";
+import { useMutation } from "@tanstack/react-query";
 
 export default function Pricing({ data }) {
   const { isLoading, mutateAsync } = useMutation({
@@ -196,6 +195,7 @@ export default function Pricing({ data }) {
     </div>
   );
 }
+
 Pricing.propTypes = {
   data: Proptypes.object,
 };
