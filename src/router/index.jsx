@@ -33,7 +33,7 @@ import { getOverviews } from "../services/overviewService";
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <ManagerHomePage />,
+    element: <SignInPage type="student" />,
   },
   {
     path: "/manager/sign-in",
