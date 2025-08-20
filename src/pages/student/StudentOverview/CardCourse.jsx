@@ -1,19 +1,18 @@
-import React from "react";
 import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
+import Proptypes from "prop-types";
 
 export default function CardCourse({
-  imageUrl = "/assets/images/thumbnails/th-1.png",
-  title = "HTMX JavaScript 2020",
-  category = "Programming",
+  imageUrl = "/assets/images/thumbnails/th-3.png",
   id = "1",
+  category = "Data Science",
+  title = "Mastering React",
 }) {
   return (
-    <div className="card flex items-center gap-5">
+    <div className="flex items-center gap-5 card">
       <div className="flex shrink-0 w-[100px] h-20 rounded-[20px] bg-[#D9D9D9] overflow-hidden">
         <img
           src={imageUrl}
-          className="w-full h-full object-cover"
+          className="object-cover w-full h-full"
           alt="thumbnail"
         />
       </div>
@@ -34,8 +33,8 @@ export default function CardCourse({
 }
 
 CardCourse.propTypes = {
-  imageUrl: PropTypes.string,
-  title: PropTypes.string,
-  category: PropTypes.string,
-  id: PropTypes.string,
+  imageUrl: Proptypes.string,
+  id: Proptypes.string,
+  category: Proptypes.string,
+  title: Proptypes.string,
 };
