@@ -1,4 +1,3 @@
-import React from "react";
 import TableContent from "./table-content";
 import { Link, useLoaderData, useParams } from "react-router-dom";
 
