@@ -64,7 +64,7 @@ const router = createBrowserRouter([
         element: <ManageCoursePage />,
       },
       {
-        path: "/manager/course/create",
+        path: "/manager/courses/create",
         loader: async () => {
           const categories = await getCategories();
 
@@ -83,7 +83,12 @@ const router = createBrowserRouter([
         element: <ManageCreateCoursePage />,
       },
       {
-        path: "/manager/course/:id",
+        path: "/manager/courses/:id",
+        loader: async ({ params }) => {
+          const course = await getCourseDetail(params.id);
+
+          return course?.data;
+        },
         element: <ManageCourseDetailPage />,
       },
       {

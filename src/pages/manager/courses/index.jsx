@@ -4,6 +4,7 @@ import { Link, useLoaderData } from "react-router-dom";
 
 export default function ManageCoursePage() {
   const courses = useLoaderData();
+
   return (
     <>
       <header className="flex items-center justify-between gap-[30px]">
@@ -23,7 +24,7 @@ export default function ManageCoursePage() {
             Import File
           </Link>
           <Link
-            to="/manager/course/create"
+            to="/manager/courses/create"
             className="w-fit rounded-full p-[14px_20px] font-semibold text-[#FFFFFF] bg-[#662FFF] text-nowrap"
           >
             New Course
@@ -36,46 +37,31 @@ export default function ManageCoursePage() {
       >
         {courses?.data?.map((item) => (
           <CardCourse
-            key={item.id}
+            key={item._id}
             category={item.category.name}
-            id={item.id}
-            name={item.name}
+            id={item._id}
             imageUrl={item.thumbnail_url}
-            totalStudent={item.total_students}
+            name={item.name}
+            totalStudents={item.total_students}
           />
         ))}
         {/* <div id="Pagination" className="flex items-center gap-3">
-          <button
-            type="button"
-            className="flex shrink-0 w-9 h-9 rounded-full items-center justify-center text-center transition-all duration-300 hover:bg-[#662FFF] hover:text-white hover:border-0 bg-[#662FFF] text-white"
-          >
-            <span className="font-semibold text-sm leading-[21px]">1</span>
-          </button>
-          <button
-            type="button"
-            className="flex shrink-0 w-9 h-9 rounded-full items-center justify-center text-center transition-all duration-300 hover:bg-[#662FFF] hover:text-white hover:border-0 border border-[#060A23]"
-          >
-            <span className="font-semibold text-sm leading-[21px]">2</span>
-          </button>
-          <button
-            type="button"
-            className="flex shrink-0 w-9 h-9 rounded-full items-center justify-center text-center transition-all duration-300 hover:bg-[#662FFF] hover:text-white hover:border-0 border border-[#060A23]"
-          >
-            <span className="font-semibold text-sm leading-[21px]">3</span>
-          </button>
-          <button
-            type="button"
-            className="flex shrink-0 w-9 h-9 rounded-full items-center justify-center text-center transition-all duration-300 hover:bg-[#662FFF] hover:text-white hover:border-0 border border-[#060A23]"
-          >
-            <span className="font-semibold text-sm leading-[21px]">4</span>
-          </button>
-          <button
-            type="button"
-            className="flex shrink-0 w-9 h-9 rounded-full items-center justify-center text-center transition-all duration-300 hover:bg-[#662FFF] hover:text-white hover:border-0 border border-[#060A23]"
-          >
-            <span className="font-semibold text-sm leading-[21px]">5</span>
-          </button>
-        </div> */}
+                    <button type="button" className="flex shrink-0 w-9 h-9 rounded-full items-center justify-center text-center transition-all duration-300 hover:bg-[#662FFF] hover:text-white hover:border-0 bg-[#662FFF] text-white">
+                        <span className="font-semibold text-sm leading-[21px]">1</span>
+                    </button>
+                    <button type="button" className="flex shrink-0 w-9 h-9 rounded-full items-center justify-center text-center transition-all duration-300 hover:bg-[#662FFF] hover:text-white hover:border-0 border border-[#060A23]">
+                        <span className="font-semibold text-sm leading-[21px]">2</span>
+                    </button>
+                    <button type="button" className="flex shrink-0 w-9 h-9 rounded-full items-center justify-center text-center transition-all duration-300 hover:bg-[#662FFF] hover:text-white hover:border-0 border border-[#060A23]">
+                        <span className="font-semibold text-sm leading-[21px]">3</span>
+                    </button>
+                    <button type="button" className="flex shrink-0 w-9 h-9 rounded-full items-center justify-center text-center transition-all duration-300 hover:bg-[#662FFF] hover:text-white hover:border-0 border border-[#060A23]">
+                        <span className="font-semibold text-sm leading-[21px]">4</span>
+                    </button>
+                    <button type="button" className="flex shrink-0 w-9 h-9 rounded-full items-center justify-center text-center transition-all duration-300 hover:bg-[#662FFF] hover:text-white hover:border-0 border border-[#060A23]">
+                        <span className="font-semibold text-sm leading-[21px]">5</span>
+                    </button>
+                </div> */}
       </section>
     </>
   );

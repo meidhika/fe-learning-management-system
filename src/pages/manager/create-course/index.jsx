@@ -1,13 +1,13 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import React, { useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useLoaderData, useNavigate, useParams } from "react-router-dom";
 import {
   createCourseSchema,
   updateCourseSchema,
 } from "../../../utils/zodSchema";
-import { useMutation } from "@tanstack/react-query";
 import { createCourse, updateCourse } from "../../../services/courseService";
+import { useMutation } from "@tanstack/react-query";
 
 export default function ManageCreateCoursePage() {
   const data = useLoaderData();
@@ -106,7 +106,7 @@ export default function ManageCreateCoursePage() {
             />
           </div>
           <span className="error-message text-[#FF435A]">
-            {errors.name?.message}
+            {errors?.name?.message}
           </span>
         </div>
         <div className="relative flex flex-col gap-[10px]">
@@ -161,7 +161,7 @@ export default function ManageCreateCoursePage() {
             className="absolute bottom-0 left-1/4 -z-10"
           />
           <span className="error-message text-[#FF435A]">
-            {errors.thumbnail?.message}
+            {errors?.thumbnail?.message}
           </span>
         </div>
         <div className="flex flex-col gap-[10px]">
@@ -183,7 +183,7 @@ export default function ManageCreateCoursePage() {
             />
           </div>
           <span className="error-message text-[#FF435A]">
-            {errors.tagline?.message}
+            {errors?.tagline?.message}
           </span>
         </div>
         <div className="flex flex-col gap-[10px]">
@@ -209,6 +209,7 @@ export default function ManageCreateCoursePage() {
                   {item.name}
                 </option>
               ))}
+              {console.log(data)}
             </select>
             <img
               src="/assets/images/icons/arrow-down.svg"
@@ -217,7 +218,7 @@ export default function ManageCreateCoursePage() {
             />
           </div>
           <span className="error-message text-[#FF435A]">
-            {errors.categoryId?.message}
+            {errors?.categoryId?.message}
           </span>
         </div>
         <div className="flex flex-col gap-[10px]">
@@ -239,7 +240,7 @@ export default function ManageCreateCoursePage() {
             ></textarea>
           </div>
           <span className="error-message text-[#FF435A]">
-            {errors.description?.message}
+            {errors?.description?.message}
           </span>
         </div>
         <div className="flex items-center gap-[14px]">

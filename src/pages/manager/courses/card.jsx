@@ -1,20 +1,38 @@
 import React from "react";
+import { Link, useRevalidator } from "react-router-dom";
 import Proptypes from "prop-types";
-import { Link } from "react-router-dom";
+import { deleteCourse } from "../../../services/courseService";
+import { useMutation } from "@tanstack/react-query";
 
 export default function CardCourse({
   id = 1,
-  imageUrl = "/assets/images/thumbnails/th-2.png",
-  name = "HTMX JavaScript 2020",
-  totalStudent = 554,
+  imageUrl = "/assets/images/thumbnails/th-1.png",
+  name = "Responsive Design Triclorem Lorem, ipsum dolor.",
+  totalStudents = 554,
   category = "Programming",
 }) {
+  const revalidator = useRevalidator();
+
+  const { isLoading, mutateAsync } = useMutation({
+    mutationFn: () => deleteCourse(id),
+  });
+
+  const handleDelete = async () => {
+    try {
+      await mutateAsync();
+
+      revalidator.revalidate();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
-    <div className="card flex items-center gap-5">
+    <div className="flex items-center gap-5 card">
       <div className="flex shrink-0 w-[140px] h-[110px] rounded-[20px] bg-[#D9D9D9] overflow-hidden">
         <img
           src={imageUrl}
-          className="w-full h-full object-cover"
+          className="object-cover w-full h-full"
           alt="thumbnail"
         />
       </div>
@@ -29,7 +47,7 @@ export default function CardCourse({
               className="w-5 h-5"
               alt="icon"
             />
-            <p className="text-[#838C9D]">{totalStudent} Students</p>
+            <p className="text-[#838C9D]">{totalStudents} Students</p>
           </div>
           <div className="flex items-center gap-[6px] mt-[6px]">
             <img
@@ -41,9 +59,23 @@ export default function CardCourse({
           </div>
         </div>
       </div>
-      <div className="flex justify-end items-center gap-3">
+      <div className="flex items-center justify-end gap-3">
         <Link
-          to={`/manager/course/${id}`}
+          to={`/manager/courses/students/${id}`}
+          className="w-fit rounded-full border border-[#060A23] p-[14px_20px] font-semibold text-nowrap"
+        >
+          Students
+        </Link>
+        <button
+          type="button"
+          onClick={handleDelete}
+          disabled={isLoading}
+          className="w-fit rounded-full bg-red-500 text-white p-[14px_20px] font-semibold text-nowrap"
+        >
+          Delete
+        </button>
+        <Link
+          to={`/manager/courses/${id}`}
           className="w-fit rounded-full border border-[#060A23] p-[14px_20px] font-semibold text-nowrap"
         >
           Manage
@@ -56,7 +88,7 @@ export default function CardCourse({
 CardCourse.propTypes = {
   id: Proptypes.number,
   imageUrl: Proptypes.string,
-  name: Proptypes.string,
-  totalStudent: Proptypes.string,
+  totalStudents: Proptypes.number,
   category: Proptypes.string,
+  name: Proptypes.string,
 };
