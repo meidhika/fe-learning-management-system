@@ -209,7 +209,6 @@ export default function ManageCreateCoursePage() {
                   {item.name}
                 </option>
               ))}
-              {console.log(data)}
             </select>
             <img
               src="/assets/images/icons/arrow-down.svg"
