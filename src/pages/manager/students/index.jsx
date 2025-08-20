@@ -1,8 +1,9 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
 import StudentItem from "./student-item";
 
 export default function ManageStudentsPage() {
+  const students = useLoaderData();
+
   return (
     <>
       <header className="flex items-center justify-between gap-[30px]">
@@ -22,7 +23,7 @@ export default function ManageStudentsPage() {
             Import File
           </Link>
           <Link
-            to="create-new-student.html"
+            to="/manager/students/create"
             className="w-fit rounded-full p-[14px_20px] font-semibold text-[#FFFFFF] bg-[#662FFF] text-nowrap"
           >
             Add Student
@@ -33,199 +34,15 @@ export default function ManageStudentsPage() {
         id="CourseList"
         className="flex flex-col w-full rounded-[30px] p-[30px] gap-[30px] bg-[#F8FAFB]"
       >
-        <StudentItem />
-        {/* <div className="card flex items-center gap-5">
-          <div className="relative flex shrink-0 w-20 h-20">
-            <div className="rounded-[20px] bg-[#D9D9D9] overflow-hidden">
-              <img
-                src="/assets/images/photos/photo-4.png"
-                className="w-full h-full object-cover"
-                alt="photo"
-              />
-            </div>
-          </div>
-          <div className="w-full">
-            <h3 className="font-bold text-xl leading-[30px] line-clamp-1">
-              Yulia Putri
-            </h3>
-            <div className="flex items-center gap-5">
-              <div className="flex items-center gap-[6px] mt-[6px]">
-                <img
-                  src="/assets/images/icons/note-favorite-purple.svg"
-                  className="w-5 h-5"
-                  alt="icon"
-                />
-                <p className="text-[#838C9D]">183 Course Joined</p>
-              </div>
-            </div>
-          </div>
-          <div className="flex justify-end items-center gap-3">
-            <Link
-              to="#"
-              className="w-fit rounded-full border border-[#060A23] p-[14px_20px] font-semibold text-nowrap"
-            >
-              Edit Profile
-            </Link>
-            <button
-              type="button"
-              className="w-fit rounded-full p-[14px_20px] bg-[#FF435A] font-semibold text-white text-nowrap"
-            >
-              Delete
-            </button>
-          </div>
-        </div>
-        <div className="card flex items-center gap-5">
-          <div className="relative flex shrink-0 w-20 h-20">
-            <div className="rounded-[20px] bg-[#D9D9D9] overflow-hidden">
-              <img
-                src="/assets/images/photos/photo-5.png"
-                className="w-full h-full object-cover"
-                alt="photo"
-              />
-            </div>
-          </div>
-          <div className="w-full">
-            <h3 className="font-bold text-xl leading-[30px] line-clamp-1">
-              Shayna Wo
-            </h3>
-            <div className="flex items-center gap-5">
-              <div className="flex items-center gap-[6px] mt-[6px]">
-                <img
-                  src="/assets/images/icons/note-favorite-purple.svg"
-                  className="w-5 h-5"
-                  alt="icon"
-                />
-                <p className="text-[#838C9D]">183 Course Joined</p>
-              </div>
-            </div>
-          </div>
-          <div className="flex justify-end items-center gap-3">
-            <Link
-              to="#"
-              className="w-fit rounded-full border border-[#060A23] p-[14px_20px] font-semibold text-nowrap"
-            >
-              Edit Profile
-            </Link>
-            <button
-              type="button"
-              className="w-fit rounded-full p-[14px_20px] bg-[#FF435A] font-semibold text-white text-nowrap"
-            >
-              Delete
-            </button>
-          </div>
-        </div>
-        <div className="card flex items-center gap-5">
-          <div className="relative flex shrink-0 w-20 h-20">
-            <div className="rounded-[20px] bg-[#D9D9D9] overflow-hidden">
-              <img
-                src="/assets/images/photos/photo-2.png"
-                className="w-full h-full object-cover"
-                alt="photo"
-              />
-            </div>
-          </div>
-          <div className="w-full">
-            <h3 className="font-bold text-xl leading-[30px] line-clamp-1">
-              Battita Gunber
-            </h3>
-            <div className="flex items-center gap-5">
-              <div className="flex items-center gap-[6px] mt-[6px]">
-                <img
-                  src="/assets/images/icons/note-favorite-purple.svg"
-                  className="w-5 h-5"
-                  alt="icon"
-                />
-                <p className="text-[#838C9D]">183 Course Joined</p>
-              </div>
-            </div>
-          </div>
-          <div className="flex justify-end items-center gap-3">
-            <Link
-              to="#"
-              className="w-fit rounded-full border border-[#060A23] p-[14px_20px] font-semibold text-nowrap"
-            >
-              Edit Profile
-            </Link>
-            <button
-              type="button"
-              className="w-fit rounded-full p-[14px_20px] bg-[#FF435A] font-semibold text-white text-nowrap"
-            >
-              Delete
-            </button>
-          </div>
-        </div>
-        <div className="card flex items-center gap-5">
-          <div className="relative flex shrink-0 w-20 h-20">
-            <div className="rounded-[20px] bg-[#D9D9D9] overflow-hidden">
-              <img
-                src="/assets/images/photos/photo-4.png"
-                className="w-full h-full object-cover"
-                alt="photo"
-              />
-            </div>
-          </div>
-          <div className="w-full">
-            <h3 className="font-bold text-xl leading-[30px] line-clamp-1">
-              Yulia Putri
-            </h3>
-            <div className="flex items-center gap-5">
-              <div className="flex items-center gap-[6px] mt-[6px]">
-                <img
-                  src="/assets/images/icons/note-favorite-purple.svg"
-                  className="w-5 h-5"
-                  alt="icon"
-                />
-                <p className="text-[#838C9D]">183 Course Joined</p>
-              </div>
-            </div>
-          </div>
-          <div className="flex justify-end items-center gap-3">
-            <Link
-              to="#"
-              className="w-fit rounded-full border border-[#060A23] p-[14px_20px] font-semibold text-nowrap"
-            >
-              Edit Profile
-            </Link>
-            <button
-              type="button"
-              className="w-fit rounded-full p-[14px_20px] bg-[#FF435A] font-semibold text-white text-nowrap"
-            >
-              Delete
-            </button>
-          </div>
-        </div> */}
-        {/* <div id="Pagination" className="flex items-center gap-3">
-          <button
-            type="button"
-            className="flex shrink-0 w-9 h-9 rounded-full items-center justify-center text-center transition-all duration-300 hover:bg-[#662FFF] hover:text-white hover:border-0 bg-[#662FFF] text-white"
-          >
-            <span className="font-semibold text-sm leading-[21px]">1</span>
-          </button>
-          <button
-            type="button"
-            className="flex shrink-0 w-9 h-9 rounded-full items-center justify-center text-center transition-all duration-300 hover:bg-[#662FFF] hover:text-white hover:border-0 border border-[#060A23]"
-          >
-            <span className="font-semibold text-sm leading-[21px]">2</span>
-          </button>
-          <button
-            type="button"
-            className="flex shrink-0 w-9 h-9 rounded-full items-center justify-center text-center transition-all duration-300 hover:bg-[#662FFF] hover:text-white hover:border-0 border border-[#060A23]"
-          >
-            <span className="font-semibold text-sm leading-[21px]">3</span>
-          </button>
-          <button
-            type="button"
-            className="flex shrink-0 w-9 h-9 rounded-full items-center justify-center text-center transition-all duration-300 hover:bg-[#662FFF] hover:text-white hover:border-0 border border-[#060A23]"
-          >
-            <span className="font-semibold text-sm leading-[21px]">4</span>
-          </button>
-          <button
-            type="button"
-            className="flex shrink-0 w-9 h-9 rounded-full items-center justify-center text-center transition-all duration-300 hover:bg-[#662FFF] hover:text-white hover:border-0 border border-[#060A23]"
-          >
-            <span className="font-semibold text-sm leading-[21px]">5</span>
-          </button>
-        </div> */}
+        {students?.map((item) => (
+          <StudentItem
+            key={item._id}
+            id={item._id}
+            imageUrl={item.photo_url}
+            name={item.name}
+            totalCourse={item.courses.length}
+          />
+        ))}
       </section>
     </>
   );

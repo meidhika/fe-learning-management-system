@@ -1,20 +1,38 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import PropTypes from "prop-types";
+import { Link, useRevalidator } from "react-router-dom";
+import Proptypes from "prop-types";
+import { deleteStudent } from "../../../services/studentService";
+import { useMutation } from "@tanstack/react-query";
 
 export default function StudentItem({
   imageUrl = "/assets/images/photos/photo-3.png",
   name = "Angga Risky Setiawan",
-  totalCourse = 183,
+  totalCourse = 0,
   id = "1",
 }) {
+  const revalidator = useRevalidator();
+
+  const { isLoading, mutateAsync } = useMutation({
+    mutationFn: () => deleteStudent(id),
+  });
+
+  const handleDelete = async () => {
+    try {
+      await mutateAsync();
+
+      revalidator.revalidate();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
-    <div className="card flex items-center gap-5">
-      <div className="relative flex shrink-0 w-20 h-20">
+    <div className="flex items-center gap-5 card">
+      <div className="relative flex w-20 h-20 shrink-0">
         <div className="rounded-[20px] bg-[#D9D9D9] overflow-hidden">
           <img
             src={imageUrl}
-            className="w-full h-full object-cover"
+            className="object-cover w-full h-full"
             alt="photo"
           />
         </div>
@@ -34,15 +52,17 @@ export default function StudentItem({
           </div>
         </div>
       </div>
-      <div className="flex justify-end items-center gap-3">
+      <div className="flex items-center justify-end gap-3">
         <Link
-          to={`/manager/students/${id}`}
+          to={`/manager/students/edit/${id}`}
           className="w-fit rounded-full border border-[#060A23] p-[14px_20px] font-semibold text-nowrap"
         >
           Edit Profile
         </Link>
         <button
           type="button"
+          disabled={isLoading}
+          onClick={handleDelete}
           className="w-fit rounded-full p-[14px_20px] bg-[#FF435A] font-semibold text-white text-nowrap"
         >
           Delete
@@ -53,8 +73,8 @@ export default function StudentItem({
 }
 
 StudentItem.propTypes = {
-  imageUrl: PropTypes.string,
-  name: PropTypes.string,
-  totalCourse: PropTypes.number,
-  id: PropTypes.string,
+  imageUrl: Proptypes.string,
+  name: Proptypes.string,
+  totalCourse: Proptypes.number,
+  id: Proptypes.string,
 };
