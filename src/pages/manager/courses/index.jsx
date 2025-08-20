@@ -1,4 +1,3 @@
-import React from "react";
 import CardCourse from "./card";
 import { Link, useLoaderData } from "react-router-dom";
 
