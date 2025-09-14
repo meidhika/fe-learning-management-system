@@ -1,10 +1,10 @@
+import { useState } from "react";
 import Navbar from "../../components/navbar";
 import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { signUpSchema } from "../../utils/zodSchema";
 import Pricing from "./pricing";
-import { useState } from "react";
 
 export default function SignUpPage() {
   const [dataSignUp, setDataSignUp] = useState(null);

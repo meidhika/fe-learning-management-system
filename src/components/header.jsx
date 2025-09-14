@@ -45,7 +45,7 @@ export default function Header({ type = "manager" }) {
           className="flex shrink-0 w-[50px] h-[50px] rounded-full overflow-hidden"
         >
           <img
-            src="/assets/images/photos/photo-1.png"
+            src="/assets/images/backgrounds/background-glow.png"
             className="object-cover w-full h-full"
             alt="profile photos"
           />

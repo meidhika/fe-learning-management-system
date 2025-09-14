@@ -1,4 +1,3 @@
-import React from "react";
 import { Link, useRevalidator } from "react-router-dom";
 import Proptypes from "prop-types";
 import { deleteStudent } from "../../../services/studentService";

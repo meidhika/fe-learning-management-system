@@ -6,7 +6,7 @@ export default function Sidebar({ isAdmin = true }) {
       <div className="flex w-full overflow-y-scroll scroll-container hide-scrollbar">
         <nav className="flex flex-col w-full h-fit p-[30px] gap-10 z-10">
           <Link to="#">
-            <img src="/assets/images/logos/logo.svg" alt="logo" />
+            <h1 className="text-2xl font-bold text-white">Nawa Sapta LMS</h1>
           </Link>
           <ul className="flex flex-col gap-4">
             <p className="font-semibold text-xs leading-[18px] text-white">

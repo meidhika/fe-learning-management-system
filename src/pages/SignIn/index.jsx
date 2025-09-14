@@ -27,7 +27,6 @@ export default function SignInPage({ type = "manager" }) {
   const onSubmit = async (data) => {
     try {
       const response = await mutateAsync(data);
-
       secureLocalStorage.setItem(STORAGE_KEY, response.data);
 
       if (response.data.role === "manager") {
